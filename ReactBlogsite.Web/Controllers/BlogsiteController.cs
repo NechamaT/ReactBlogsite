@@ -50,10 +50,10 @@ namespace ReactBlogsite.Web.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public List<BlogPost> getAll()
+        public List<BlogPost> getAll(int page)
         {
             var repo = new BlogsiteRepository(_connectionString);
-            return repo.GetAll();
+            return repo.GetAll(page);
         }
 
         [HttpGet]
@@ -62,6 +62,14 @@ namespace ReactBlogsite.Web.Controllers
         {
            var repo = new BlogsiteRepository(_connectionString);
            return repo.GetById(id);
+        }
+
+        [HttpGet]
+        [Route("getLastPage")]
+        public int getLastPage()
+        {
+            var repo = new BlogsiteRepository(_connectionString);
+            return repo.GetLastPage();
         }
 
     }

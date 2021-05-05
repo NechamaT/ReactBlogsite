@@ -41,15 +41,27 @@ namespace ReactBlogsite.Data
             return ctx.BlogPosts.Count();
         }
 
-        public List<BlogPost> GetAll()
+        public List<BlogPost> GetAll(int page)
         {
             using var ctx = new BlogsiteDbContext(_connectionString);
-            return ctx.BlogPosts.Include(p => p.Comments).OrderByDescending(p => p.DatePosted).ToList();
+            return ctx.BlogPosts.Include(p => p.Comments).OrderByDescending(p => p.DatePosted).Skip((page-1)*3).Take(3).ToList();
         }
         public BlogPost GetById(int id)
         {
             using var ctx = new BlogsiteDbContext(_connectionString);
             return ctx.BlogPosts.Include(p => p.Comments).FirstOrDefault(p => p.Id ==id);
+        }
+
+        public int GetLastPage()
+        {
+            var ctx = new BlogsiteDbContext(_connectionString);
+            var total = ctx.BlogPosts.Count();
+            if(total % 3 == 0)
+            {
+                return total / 3;
+            }
+
+            return (total / 3) + 1;
         }
 
 
