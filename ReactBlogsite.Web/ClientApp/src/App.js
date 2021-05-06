@@ -12,6 +12,7 @@ export default class app extends React.Component{
         return(
             <Layout>
                 <Route exact path='/' component={Home}></Route>
+                <Route exact path='/page/:page?' component={Home}></Route>
                 <Route exact path='/viewblog/:id' component={ViewBlog}></Route>
                 <Route exact path='/Admin' component={Admin}></Route>
                 <Route exact path='/mostRecent' component={MostRecent}></Route>
